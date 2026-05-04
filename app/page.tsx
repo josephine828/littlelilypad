@@ -82,7 +82,9 @@ export default function Home() {
                     />
 
                     <div className="grid gap-5 md:grid-cols-3">
-                        <QuizPreview />
+                        <Link href="/quiz">
+                            <QuizPreview />
+                        </Link>
                         <PalettePreview />
                         <GardenPreview />
                     </div>

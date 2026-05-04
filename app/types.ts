@@ -12,4 +12,16 @@ export type Flower = {
     funFacts: string[]
     careDifficulty: FlowerDifficulty
     sketch: string
+    imageUrl?: string
+}
+
+export type QuizQuestion = {
+    id: string
+    flowerId: string
+    prompt: string
+    imageUrl: string
+    correctAnswer: string
+    options: string[]
+    hint: string
+    fact: string
 }

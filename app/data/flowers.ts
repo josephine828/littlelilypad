@@ -17,6 +17,8 @@ export const flowers: Flower[] = [
         ],
         careDifficulty: 'Curious',
         sketch: '/flowers/rose-sketch.svg',
+        imageUrl:
+            'https://plantsguru.com/cdn/shop/files/Rose_Baby_Pink.jpg?v=1758804477&width=750',
     },
     {
         id: 'sunflower',
@@ -34,6 +36,8 @@ export const flowers: Flower[] = [
         ],
         careDifficulty: 'Beginner',
         sketch: '/flowers/sunflower-sketch.svg',
+        imageUrl:
+            'https://www.almanac.com/sites/default/files/styles/or/public/image_nodes/sunflower-1627193_1920.jpg?itok=td7mL8qA',
     },
     {
         id: 'lotus',
@@ -51,6 +55,8 @@ export const flowers: Flower[] = [
         ],
         careDifficulty: 'Botanist',
         sketch: '/flowers/lotus-sketch.svg',
+        imageUrl:
+            'https://hips.hearstapps.com/hmg-prod/images/water-lilies-lake-france-royalty-free-image-1699382596.jpg?crop=0.662xw:1.00xh;0.170xw,0&resize=1200:*',
     },
     {
         id: 'lavender',
@@ -68,6 +74,8 @@ export const flowers: Flower[] = [
         ],
         careDifficulty: 'Beginner',
         sketch: '/flowers/lavender-sketch.svg',
+        imageUrl:
+            'https://cloversgarden.com/cdn/shop/products/CGHidcoteLavenderPrimary_1200x1200.jpg?v=1679602241',
     },
     {
         id: 'cherry-blossom',
@@ -85,6 +93,8 @@ export const flowers: Flower[] = [
         ],
         careDifficulty: 'Curious',
         sketch: '/flowers/cherry-blossom-sketch.svg',
+        imageUrl:
+            'https://images.stockcake.com/public/9/3/e/93e45f29-81c3-452d-922b-ae10b82e34b2_large/spring-blossoms-stockcake.jpg',
     },
     {
         id: 'tulip',
@@ -102,5 +112,7 @@ export const flowers: Flower[] = [
         ],
         careDifficulty: 'Beginner',
         sketch: '/flowers/tulip-sketch.svg',
+        imageUrl:
+            'https://www.thespruce.com/thmb/TsI3yNclW-R2QcFTFai5m99iQaY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/tulip-types-for-spring-garden-1315804-hero-5c10c927e00c459eb24c702be447e50d.jpg',
     },
 ]
