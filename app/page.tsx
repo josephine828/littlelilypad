@@ -23,7 +23,7 @@ export default function Home() {
                 />
 
                 <nav className="hidden items-center gap-2 rounded-full border border-green-200 bg-white/70 p-1 text-sm font-semibold shadow-sm backdrop-blur md:flex">
-                    {['Index', 'Quiz', 'Palette', 'Garden'].map((item) => (
+                    {['Flowers', 'Quiz', 'Palette', 'Garden'].map((item) => (
                         <a
                             key={item}
                             href={`/${item.toLowerCase()}`}
@@ -56,7 +56,7 @@ export default function Home() {
                     </p>
 
                     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                        <Link href="/index">
+                        <Link href="/flowers">
                             <Button>
                                 Explore the Index
                                 <Search size={18} />
