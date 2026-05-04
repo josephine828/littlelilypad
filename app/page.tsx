@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { BookOpen, Search, Sprout, WandSparkles } from 'lucide-react'
+import { Search, Sprout, WandSparkles } from 'lucide-react'
 import { flowers } from './data/flowers'
 import { FlowerCard } from './components/flowers/FlowerCard'
 import { GardenPreview } from './components/garden/GardenPreview'
@@ -88,7 +88,9 @@ export default function Home() {
                         <Link href="/palette">
                             <PalettePreview />
                         </Link>
-                        <GardenPreview />
+                        <Link href="/garden">
+                            <GardenPreview />
+                        </Link>
                     </div>
                 </section>
 
@@ -104,23 +106,6 @@ export default function Home() {
                             <FlowerCard key={flower.id} flower={flower} />
                         ))}
                     </div>
-                </section>
-
-                <section className="rounded-[2rem] bg-[#e9f5d8] p-8">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#3f8f5c]">
-                        <BookOpen size={24} />
-                    </div>
-
-                    <h2 className="font-heading text-3xl font-bold">
-                        Built to expand slowly.
-                    </h2>
-
-                    <p className="mt-3 max-w-2xl leading-7 text-[#5a765e]">
-                        Next, you can turn each preview into a full route: a
-                        searchable flower index, a flower detail page, a
-                        randomized daily flower, a quiz flow, a palette
-                        generator, and a saved garden.
-                    </p>
                 </section>
             </div>
         </main>
