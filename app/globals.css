@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Handlee&family=Unkempt:wght@400;700&display=swap');
+
+@import 'tailwindcss';
+
+:root {
+    --background: #f5fbef;
+    --foreground: #23452f;
+    --leaf: #5fa777;
+    --leaf-dark: #2f6f46;
+    --lily: #f7bfd8;
+    --cream: #fffdf6;
+
+    --font-body: var(--font-body);
+    --font-heading: var(--font-heading);
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+}
+
+body,
+button,
+span,
+input,
+textarea,
+select,
+p {
+    font-family: Unkempt, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: DynaPuff, sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
