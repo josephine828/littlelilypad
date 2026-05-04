@@ -85,7 +85,9 @@ export default function Home() {
                         <Link href="/quiz">
                             <QuizPreview />
                         </Link>
-                        <PalettePreview />
+                        <Link href="/palette">
+                            <PalettePreview />
+                        </Link>
                         <GardenPreview />
                     </div>
                 </section>
