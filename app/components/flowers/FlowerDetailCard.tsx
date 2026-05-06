@@ -1,4 +1,5 @@
-import { BookOpen, Flower2, Heart, Leaf, MapPin, Palette } from 'lucide-react'
+import Image from 'next/image'
+import { BookOpen, Heart, Leaf, MapPin, Palette } from 'lucide-react'
 import type { Flower } from '../../types'
 import { Badge } from '../ui/Badge'
 import { Card } from '../ui/Card'
@@ -10,8 +11,15 @@ type FlowerDetailCardProps = {
 export function FlowerDetailCard({ flower }: FlowerDetailCardProps) {
     return (
         <Card className="group relative overflow-hidden transition hover:-translate-y-1 hover:shadow-xl hover:shadow-green-900/10">
-            <div className="absolute right-5 top-5 opacity-10 transition group-hover:rotate-6 group-hover:scale-110">
-                <Flower2 size={96} />
+            <div className="absolute right-5 top-5 opacity-40 transition group-hover:rotate-6 group-hover:scale-110">
+                <Image
+                    src={flower.sketch}
+                    alt={flower.commonName}
+                    width={240}
+                    height={240}
+                    priority
+                    className="relative max-h-[380px] w-auto object-contain opacity-25 mix-blend-multiply"
+                />{' '}
             </div>
 
             <div className="relative">

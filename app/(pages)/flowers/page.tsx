@@ -39,18 +39,10 @@ export default function FlowerIndexPage() {
                     <h1 className="font-heading text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl">
                         A growing library of blooms.
                     </h1>
-
                     <p className="mt-6 max-w-2xl text-lg leading-8 text-[#4f745b]">
-                        Browse flowers by name, symbolism, season, origin, and
-                        care level. Each profile is designed to feel like a
-                        small botanical story rather than a plain database
-                        entry.
+                        Learn about flowers through their meanings, colors,
+                        history, and natural beauty.
                     </p>
-
-                    <div className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-[#e9f5d8] px-4 py-3 text-sm font-bold text-[#315c3c]">
-                        <Flower2 size={18} />
-                        Starter collection active
-                    </div>
                 </div>
 
                 <FlowerIndex />
