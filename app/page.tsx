@@ -91,9 +91,9 @@ export default function Home() {
 
                 <section>
                     <SectionHeader
-                        eyebrow="Feature paths"
-                        title="Choose your way into the garden"
-                        description="LittleLilypad can grow into several connected learning modes without becoming messy or monolithic."
+                        eyebrow="Explore"
+                        title="Different ways to wander through flowers"
+                        description="Move between learning, collecting, creating, and growing at your own pace."
                     />
 
                     <div className="grid gap-5 md:grid-cols-3">
