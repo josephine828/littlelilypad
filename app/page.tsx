@@ -1,16 +1,16 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { Search, Sprout, WandSparkles } from 'lucide-react'
-import { flowers } from './data/flowers'
-import { FlowerCard } from './components/flowers/FlowerCard'
 import { GardenPreview } from './components/garden/GardenPreview'
 import { PalettePreview } from './components/palette/PalettePreview'
 import { QuizPreview } from './components/quiz/QuizPreview'
 import { FlowerOfTheDay } from './components/randomizer/FlowerOfTheDay'
 import { Button } from './components/ui/Button'
 import { SectionHeader } from './components/ui/SectionHeader'
-import Link from 'next/link'
+import { getFlowerOfTheDay } from './utils/flowerUtils'
 
 export default function Home() {
+    const flowerOfTheDay = getFlowerOfTheDay()
     return (
         <main className="min-h-screen overflow-hidden bg-[#f7f3df] text-[#214432]">
             <header className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
@@ -39,40 +39,55 @@ export default function Home() {
                 <div className="absolute left-[-80px] top-20 h-64 w-64 rounded-full bg-[#dff0c2] blur-3xl" />
                 <div className="absolute right-[-80px] top-40 h-72 w-72 rounded-full bg-[#f6c6d8] blur-3xl" />
 
-                <div className="relative z-10 max-w-3xl">
-                    <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-green-200 bg-white/70 px-4 py-2 text-sm font-bold text-[#3f7f55] shadow-sm">
-                        <WandSparkles size={16} />A tiny botanical world for
-                        curious learners
-                    </div>
+                <div className="relative z-10 grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr]">
+                    <div className="max-w-3xl">
+                        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-green-200 bg-white/70 px-4 py-2 text-sm font-semibold text-[#3f7f55] shadow-sm">
+                            <WandSparkles size={16} />
+                            Explore the language of flowers
+                        </div>
 
-                    <h1 className="font-heading text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl">
-                        Meet flowers like they have stories to tell.
-                    </h1>
+                        <h1 className="font-heading text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl">
+                            Discover the stories behind every bloom.
+                        </h1>
 
-                    <p className="mt-6 max-w-2xl text-lg leading-8 text-[#4f745b]">
-                        Explore flower profiles, collect favorites, test your
-                        plant knowledge, create soft color palettes, and slowly
-                        grow your own digital garden.
-                    </p>
+                        <p className="mt-6 max-w-2xl text-lg leading-8 text-[#4f745b]">
+                            Learn about flower meanings, origins, colors, and
+                            characteristics through interactive profiles,
+                            quizzes, palettes, and building a personal
+                            collection of your favorite flowers.
+                        </p>
 
-                    <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                        <Link href="/flowers">
-                            <Button>
-                                Explore the Index
-                                <Search size={18} />
+                        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                            <Link href="/flowers">
+                                <Button>
+                                    Explore the Index
+                                    <Search size={18} />
+                                </Button>
+                            </Link>
+
+                            <Button variant="secondary">
+                                Plant My Garden
+                                <Sprout size={18} />
                             </Button>
-                        </Link>
+                        </div>
+                    </div>
+                    <div className="pointer-events-none relative hidden min-h-[360px] items-center justify-center md:flex">
+                        <div className="absolute h-72 w-72 rounded-full bg-white/40 blur-2xl" />
 
-                        <Button variant="secondary">
-                            Plant My Garden
-                            <Sprout size={18} />
-                        </Button>
+                        <Image
+                            src={flowerOfTheDay.sketch}
+                            alt={flowerOfTheDay.commonName}
+                            width={420}
+                            height={420}
+                            priority
+                            className="relative max-h-[380px] w-auto object-contain opacity-25 mix-blend-multiply"
+                        />
                     </div>
                 </div>
             </section>
 
             <div className="mx-auto grid max-w-6xl gap-14 px-6 pb-24">
-                <FlowerOfTheDay />
+                <FlowerOfTheDay flower={flowerOfTheDay} />
 
                 <section>
                     <SectionHeader
@@ -91,20 +106,6 @@ export default function Home() {
                         <Link href="/garden">
                             <GardenPreview />
                         </Link>
-                    </div>
-                </section>
-
-                <section>
-                    <SectionHeader
-                        eyebrow="Flower index"
-                        title="Start with a small collection"
-                        description="These starter cards are powered by your data file, so expanding the index later will be straightforward."
-                    />
-
-                    <div className="grid gap-5 md:grid-cols-3">
-                        {flowers.map((flower) => (
-                            <FlowerCard key={flower.id} flower={flower} />
-                        ))}
                     </div>
                 </section>
             </div>

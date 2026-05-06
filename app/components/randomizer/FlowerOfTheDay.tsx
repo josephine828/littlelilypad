@@ -1,17 +1,19 @@
 import { Sparkles } from 'lucide-react'
-import { getFlowerOfTheDay } from '../../utils/flowerUtils'
+import type { Flower } from '../../types'
 import { FlowerCard } from '../flowers/FlowerCard'
 import { SectionHeader } from '../ui/SectionHeader'
 
-export function FlowerOfTheDay() {
-    const flower = getFlowerOfTheDay()
+type FlowerOfTheDayProps = {
+    flower: Flower
+}
 
+export function FlowerOfTheDay({ flower }: FlowerOfTheDayProps) {
     return (
         <section>
             <SectionHeader
                 eyebrow="Daily discovery"
                 title="Flower of the Day"
-                description="A rotating plant pick to make every visit feel like a tiny field trip."
+                description="Discover a different flower every day and learn what makes it unique."
             />
 
             <div className="grid gap-5 md:grid-cols-[1fr_1.4fr]">
