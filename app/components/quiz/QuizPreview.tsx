@@ -12,7 +12,7 @@ export function QuizPreview() {
 
             <p className="mt-2 leading-7 text-[#5a765e]">
                 Practice identifying flowers from sketches, photos, clues, and
-                symbolism.
+                more.
             </p>
         </Card>
     )

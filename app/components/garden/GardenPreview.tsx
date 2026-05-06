@@ -12,15 +12,6 @@ export function GardenPreview() {
                 Favorite flowers and plant them into your own little collected
                 garden.
             </p>
-
-            <div className="mt-5 grid grid-cols-4 gap-2">
-                {Array.from({ length: 8 }).map((_, index) => (
-                    <div
-                        key={index}
-                        className="aspect-square rounded-2xl border border-dashed border-green-200 bg-[#f4f8e8]"
-                    />
-                ))}
-            </div>
         </Card>
     )
 }
