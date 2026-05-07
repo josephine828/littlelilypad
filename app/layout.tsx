@@ -17,7 +17,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <div className="relative isolate min-h-screen overflow-hidden">
+                <div className="relative isolate min-h-screen">
                     <LilyPadBackground />
                     <AppHeader />
                     {children}

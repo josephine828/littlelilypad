@@ -324,7 +324,7 @@ function TinyFlower({
 export function LilyPadBackground() {
     return (
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-            <div className="absolute inset-0 bg-[#fffdf6]" />
+            <div className="absolute inset-0" />
 
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(223,240,194,0.38),transparent_24%),radial-gradient(circle_at_78%_18%,rgba(246,198,216,0.20),transparent_24%),radial-gradient(circle_at_48%_88%,rgba(155,207,122,0.16),transparent_28%),linear-gradient(180deg,rgba(255,253,246,0.7),rgba(247,243,223,0.22))]" />
 

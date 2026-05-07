@@ -48,15 +48,16 @@ export function AppHeader() {
                     <span className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
                         <span className="absolute left-[-40%] top-0 h-full w-1/3 rotate-12 bg-white/40 blur-md transition-transform duration-1000 group-hover:translate-x-[320%]" />
                     </span>
-
-                    <Image
-                        src="/littlelilypadlogo_horizontal.svg"
-                        alt="LittleLilypad"
-                        width={185}
-                        height={46}
-                        priority
-                        className="relative z-10 drop-shadow-[0_2px_10px_rgba(255,255,255,0.9)]"
-                    />
+                    <span className="relative z-10 block h-[80px] w-[240px]">
+                        <Image
+                            src="/littlelilypadlogo_horizontal.svg"
+                            alt="LittleLilypad"
+                            fill
+                            priority
+                            className="object-contain drop-shadow-[0_2px_10px_rgba(255,255,255,0.9)]"
+                            sizes="180px"
+                        />
+                    </span>
                 </Link>
 
                 <nav className="relative ml-auto hidden items-center gap-1 rounded-full border border-white/45 bg-white/35 p-1.5 backdrop-blur-xl md:flex">
