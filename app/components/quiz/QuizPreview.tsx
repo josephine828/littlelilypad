@@ -3,9 +3,7 @@ import { Card } from '../ui/Card'
 
 export function QuizPreview() {
     return (
-        <Card>
-            <CircleHelp className="mb-4 text-[#3f8f5c]" size={28} />
-
+        <Card tabIcon={<CircleHelp size={18} />}>
             <h3 className="font-heading text-2xl font-bold">
                 Guess the Flower
             </h3>

@@ -12,7 +12,7 @@ import { getFlowerOfTheDay } from './utils/flowerUtils'
 export default function Home() {
     const flowerOfTheDay = getFlowerOfTheDay()
     return (
-        <main className="min-h-screen overflow-hidden bg-[#f7f3df] text-[#214432]">
+        <main className="min-h-screen overflow-hidden text-[#214432]">
             <section className="relative mx-auto max-w-6xl px-6 pb-16 pt-10">
                 <div className="absolute left-[-80px] top-20 h-64 w-64 rounded-full bg-[#dff0c2] blur-3xl" />
                 <div className="absolute right-[-80px] top-40 h-72 w-72 rounded-full bg-[#f6c6d8] blur-3xl" />

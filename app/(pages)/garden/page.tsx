@@ -3,7 +3,7 @@ import { GardenBuilder } from '../../components/garden/GardenBuilder'
 
 export default function GardenPage() {
     return (
-        <main className="min-h-screen bg-[#f7f3df] text-[#214432]">
+        <main className="min-h-screen text-[#214432]">
             <section className="relative mx-auto max-w-6xl px-6 pb-16 pt-8">
                 <div className="absolute left-[-70px] top-14 h-64 w-64 rounded-full bg-[#dff0c2] blur-3xl" />
                 <div className="absolute right-[-80px] top-40 h-72 w-72 rounded-full bg-[#f6c6d8] blur-3xl" />

@@ -3,9 +3,10 @@ import type { ReactNode } from 'react'
 type CardProps = {
     children: ReactNode
     className?: string
+    tabIcon?: ReactNode
 }
 
-export function Card({ children, className = '' }: CardProps) {
+export function Card({ children, className = '', tabIcon }: CardProps) {
     return (
         <div
             className={`
@@ -38,21 +39,28 @@ export function Card({ children, className = '' }: CardProps) {
                         `,
                         backgroundSize: '100% 28px',
                     }}
-                />
+                    />
             </div>
 
             <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#dff0c2]/70 blur-2xl transition-transform duration-500 group-hover:scale-110" />
 
             <div className="pointer-events-none absolute bottom-0 left-0 h-24 w-24 rounded-full bg-[#f6c6d8]/40 blur-2xl" />
 
-            <div className="pointer-events-none absolute left-4 top-10 flex flex-col gap-5">
-                {Array.from({ length: 6 }).map((_, i) => (
-                    <span
-                        key={i}
-                        className="h-3 w-3 rounded-full border-2 border-[#b7caa7] bg-[#fffdf6]"
-                    />
-                ))}
-            </div>
+            <div
+                className="pointer-events-none absolute bottom-6 left-4 top-6 w-3"
+                style={{
+                    backgroundImage: `
+                        radial-gradient(
+                            circle,
+                            #fffdf6 0 4px,
+                            #b7caa7 4px 6px,
+                            transparent 6px
+                        )
+                    `,
+                    backgroundSize: '12px 28px',
+                    backgroundRepeat: 'repeat-y',
+                }}
+            />
 
             <div className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-[linear-gradient(to_right,rgba(215,232,193,0.35),transparent)]" />
 
@@ -60,7 +68,19 @@ export function Card({ children, className = '' }: CardProps) {
 
             <div className="pointer-events-none absolute inset-2 rounded-[1.7rem] border border-[#edf5e4]" />
 
-            <div className="pointer-events-none absolute right-10 top-0 h-6 w-16 rounded-b-2xl bg-[#f6c6d8]/80 shadow-sm" />
+            {tabIcon && (
+                <div
+                    className="absolute right-5 top-0 z-20 h-14 w-12 border border-[#f6c6d8] bg-[#f6c6d8]/60 shadow-[0_12px_24px_rgba(64,98,72,0.12)]"
+                    style={{
+                        clipPath:
+                            'polygon(0 0, 100% 0, 100% 78%, 50% 100%, 0 78%)',
+                    }}
+                >
+                    <div className="flex h-full items-start justify-center pt-3 text-[#A55C77]">
+                        {tabIcon}
+                    </div>
+                </div>
+            )}
 
             <div className="relative z-10 pl-6">{children}</div>
         </div>

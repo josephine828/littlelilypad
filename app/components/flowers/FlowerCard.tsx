@@ -5,7 +5,10 @@ import { Card } from '../ui/Card'
 
 export function FlowerCard({ flower }: { flower: Flower }) {
     return (
-        <Card className="transition hover:-translate-y-1 hover:shadow-xl hover:shadow-green-900/10">
+        <Card
+            className="transition hover:-translate-y-1 hover:shadow-xl hover:shadow-green-900/10"
+            tabIcon={<Flower2 size={18} />}
+        >
             <div className="mb-5 flex items-start justify-between gap-4">
                 <div>
                     <h3 className="font-heading text-2xl font-bold">
@@ -14,10 +17,6 @@ export function FlowerCard({ flower }: { flower: Flower }) {
                     <p className="text-sm italic text-[#6a806d]">
                         {flower.scientificName}
                     </p>
-                </div>
-
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#e4f3d3] text-[#3f8f5c]">
-                    <Flower2 size={22} />
                 </div>
             </div>
 
