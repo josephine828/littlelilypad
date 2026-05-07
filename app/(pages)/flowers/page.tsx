@@ -9,7 +9,7 @@ export default function FlowerIndexPage() {
                 <div className="absolute right-[-80px] top-40 h-72 w-72 rounded-full bg-[#f6c6d8] blur-3xl" />
 
                 <div className="relative z-10 mb-10 max-w-3xl">
-                    <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-green-200 bg-white/70 px-4 py-2 text-sm font-bold text-[#3f7f55] shadow-sm">
+                    <div className="my-5 inline-flex items-center gap-2 rounded-full border border-green-200 bg-white/70 px-4 py-2 font-bold text-[#3f7f55] shadow-sm">
                         <BookOpen size={16} />
                         Flower Index
                     </div>

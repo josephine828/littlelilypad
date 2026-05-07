@@ -23,7 +23,7 @@ export function FlowerOfTheDay({ flower }: FlowerOfTheDayProps) {
                     </div>
 
                     <h3 className="font-heading text-3xl font-bold">
-                        Today is for {flower.commonName}s.
+                        Fresh from the garden: {flower.commonName}.
                     </h3>
 
                     <p className="mt-3 leading-7 text-[#5a765e]">

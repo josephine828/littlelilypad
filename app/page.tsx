@@ -19,7 +19,7 @@ export default function Home() {
 
                 <div className="relative z-10 grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr]">
                     <div className="max-w-3xl">
-                        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-green-200 bg-white/70 px-4 py-2 text-sm font-semibold text-[#3f7f55] shadow-sm">
+                        <div className="my-5 inline-flex items-center gap-2 rounded-full border border-green-200 bg-white/70 px-4 py-2 font-semibold text-[#3f7f55] shadow-sm">
                             <WandSparkles size={16} />
                             Explore the language of flowers
                         </div>
