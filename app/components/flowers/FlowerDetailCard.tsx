@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { BookOpen, Heart, Leaf, MapPin, Palette, Flower2 } from 'lucide-react'
+import { BookOpen, Flower2, Leaf, MapPin, Palette } from 'lucide-react'
 import type { Flower, CardVariant } from '../../types'
 import { Badge } from '../ui/Badge'
 import { Card } from '../ui/Card'
@@ -23,36 +23,32 @@ export function FlowerDetailCard({
                 <Image
                     src={flower.sketch}
                     alt={flower.commonName}
-                    width={240}
-                    height={240}
+                    width={320}
+                    height={320}
                     priority
-                    className="relative max-h-[380px] w-auto object-contain opacity-25 mix-blend-multiply"
-                />{' '}
+                    className="relative max-h-[460px] w-auto object-contain opacity-25 mix-blend-multiply"
+                />
             </div>
 
             <div className="relative">
                 <div className="mb-5 flex items-start justify-between gap-4">
                     <div>
-                        <h3 className="font-heading text-3xl font-bold text-[#23452f]">
+                        <h3 className="font-heading text-4xl font-bold text-[#23452f]">
                             {flower.commonName}
                         </h3>
                         <p className="mt-1 text-sm italic text-[#6a806d]">
                             {flower.scientificName}
                         </p>
                     </div>
-
-                    {/* <button className="flex h-11 w-11 items-center justify-center rounded-full bg-[#f8dde8] text-[#b54a73] transition hover:scale-105">
-                        <Heart size={20} />
-                    </button> */}
                 </div>
 
-                <div className="mb-5 flex flex-wrap gap-2">
+                <div className="mb-6 flex flex-wrap gap-2">
                     {flower.symbolism.map((symbol) => (
                         <Badge key={symbol}>{symbol}</Badge>
                     ))}
                 </div>
 
-                <div className="mb-5 grid gap-3 text-sm text-[#5a765e]">
+                <div className="mb-6 grid gap-3 text-sm text-[#5a765e]">
                     <div className="flex gap-2">
                         <MapPin
                             size={17}
@@ -91,7 +87,7 @@ export function FlowerDetailCard({
                     </div>
                 </div>
 
-                <div className="mb-5">
+                <div className="mb-6">
                     <div className="mb-2 flex items-center gap-2 text-sm font-bold text-[#315c3c]">
                         <Palette size={16} />
                         Palette
@@ -107,14 +103,16 @@ export function FlowerDetailCard({
                         ))}
                     </div>
                 </div>
-
-                <div className="rounded-2xl bg-[#f7f3df] p-4">
+                <div className="rounded-[1.5rem] border border-white/70 bg-white/50 p-5 shadow-inner">
                     <p className="mb-2 text-sm font-bold text-[#315c3c]">
                         Fun facts
                     </p>
                     <ul className="space-y-2 text-sm leading-6 text-[#5a765e]">
                         {flower.funFacts.map((fact) => (
-                            <li key={fact}>• {fact}</li>
+                            <li key={fact} className="flex gap-2">
+                                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#9ccf7f]" />
+                                <span>{fact}</span>
+                            </li>
                         ))}
                     </ul>
                 </div>
