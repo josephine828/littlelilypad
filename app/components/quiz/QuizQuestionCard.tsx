@@ -41,11 +41,6 @@ export function QuizQuestionCard({
                 </div>
 
                 <div className="p-6 md:p-8">
-                    <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#e4f3d3] px-4 py-2 text-sm font-bold text-[#3f7f55]">
-                        <CircleHelp size={16} />
-                        Flower ID Challenge
-                    </div>
-
                     <h2 className="font-heading text-4xl font-bold leading-none text-[#23452f]">
                         {question.prompt}
                     </h2>
@@ -73,7 +68,9 @@ export function QuizQuestionCard({
                                         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/80 text-xs font-black text-[#315c3c] shadow-sm">
                                             {index + 1}
                                         </span>
-                                        <span className="truncate">{option}</span>
+                                        <span className="truncate">
+                                            {option}
+                                        </span>
                                     </span>
 
                                     {hasAnswered && isCorrect && (
