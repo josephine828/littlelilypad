@@ -9,8 +9,8 @@ export function QuizPreview() {
             </h3>
 
             <p className="mt-2 leading-7 text-[#5a765e]">
-                Practice identifying flowers from sketches, photos, clues, and
-                more.
+                Practice identifying flowers from photos, scientific names,
+                and symbolism clues.
             </p>
         </Card>
     )

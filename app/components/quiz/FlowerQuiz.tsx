@@ -1,14 +1,23 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { ArrowRight, RotateCcw, Zap } from 'lucide-react'
-import type { QuizQuestion } from '../../types'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { ArrowRight, RotateCcw } from 'lucide-react'
+import type { QuizFocus } from '../../types'
 import { buildFlowerQuiz } from '../../utils/quizUtils'
 import { Button } from '../ui/Button'
 import { QuizQuestionCard } from './QuizQuestionCard'
 import { QuizResults } from './QuizResults'
 
 type QuizMode = 'normal' | 'lightning'
+const QUIZ_FOCUS_OPTIONS: Array<{
+    label: string
+    value: QuizFocus
+}> = [
+    { label: 'Mixed', value: 'mixed' },
+    { label: 'Pictures', value: 'picture' },
+    { label: 'Scientific names', value: 'scientificName' },
+    { label: 'Symbolism', value: 'symbolism' },
+]
 type LightningFeedback = {
     correctAnswer: string
     isCorrect: boolean
@@ -17,9 +26,7 @@ type LightningFeedback = {
 } | null
 
 export function FlowerQuiz() {
-    const [questions, setQuestions] = useState<QuizQuestion[]>(() =>
-        buildFlowerQuiz()
-    )
+    const [quizFocus, setQuizFocus] = useState<QuizFocus>('mixed')
     const [currentIndex, setCurrentIndex] = useState(0)
     const [answers, setAnswers] = useState<Record<string, string>>({})
     const [showHint, setShowHint] = useState(false)
@@ -29,6 +36,7 @@ export function FlowerQuiz() {
         useState<LightningFeedback>(null)
     const lockedQuestionIdRef = useRef<string | null>(null)
     const advanceTimeoutRef = useRef<number | null>(null)
+    const questions = useMemo(() => buildFlowerQuiz(quizFocus), [quizFocus])
 
     const currentQuestion = questions[currentIndex] ?? null
     const currentQuestionId = currentQuestion?.id ?? null
@@ -46,6 +54,16 @@ export function FlowerQuiz() {
             advanceTimeoutRef.current = null
         }
     }, [])
+
+    const resetQuizState = useCallback(() => {
+        setCurrentIndex(0)
+        setAnswers({})
+        setShowHint(false)
+        setShowResults(false)
+        setLightningFeedback(null)
+        lockedQuestionIdRef.current = null
+        clearAdvanceTimeout()
+    }, [clearAdvanceTimeout])
 
     useEffect(() => {
         lockedQuestionIdRef.current = null
@@ -104,20 +122,19 @@ export function FlowerQuiz() {
                 }, 450)
             }
         },
-        [clearAdvanceTimeout, currentQuestion, currentQuestionId, handleNext, isLightningRound]
+        [
+            clearAdvanceTimeout,
+            currentQuestion,
+            currentQuestionId,
+            handleNext,
+            isLightningRound,
+        ]
     )
 
     const handleRestart = useCallback(() => {
-        setQuestions(buildFlowerQuiz())
-        setCurrentIndex(0)
-        setAnswers({})
-        setShowHint(false)
-        setShowResults(false)
         setMode('normal')
-        setLightningFeedback(null)
-        lockedQuestionIdRef.current = null
-        clearAdvanceTimeout()
-    }, [clearAdvanceTimeout])
+        resetQuizState()
+    }, [resetQuizState])
 
     useEffect(() => {
         function handleKeyDown(event: KeyboardEvent) {
@@ -206,45 +223,75 @@ export function FlowerQuiz() {
 
     return (
         <div className="grid gap-6">
-            <div className="flex flex-wrap items-center justify-between gap-3 rounded-[1.75rem] border border-green-200 bg-white/70 p-3 shadow-sm backdrop-blur">
-                <div className="flex items-center gap-2 text-sm font-bold text-[#315c3c]">
-                    <Zap size={16} />
-                    Quiz mode
+            <div className="flex flex-col gap-4 rounded-[1.75rem] border border-green-200 bg-white/70 p-4 shadow-sm backdrop-blur md:flex-row md:items-center md:justify-between">
+                <div className="flex flex-col gap-2">
+                    <div className="flex flex-wrap gap-2 rounded-full bg-[#edf6e0] p-1 shadow-inner">
+                        {QUIZ_FOCUS_OPTIONS.map((option) => {
+                            const isActive = quizFocus === option.value
+
+                            return (
+                                <button
+                                    key={option.value}
+                                    type="button"
+                                    onClick={() => {
+                                        if (isActive) {
+                                            return
+                                        }
+
+                                        resetQuizState()
+                                        setQuizFocus(option.value)
+                                    }}
+                                    aria-pressed={isActive}
+                                    className={`cursor-pointer rounded-full px-4 py-2 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#86b56b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#edf6e0] ${
+                                        isActive
+                                            ? 'bg-white text-[#23452f] shadow-sm'
+                                            : 'text-[#5a765e] hover:bg-white/70 hover:text-[#315c3c]'
+                                    }`}
+                                >
+                                    {option.label}
+                                </button>
+                            )
+                        })}
+                    </div>
                 </div>
 
-                <div className="flex rounded-full bg-[#f7f3df] p-1">
-                    <button
-                        type="button"
-                        onClick={() => {
-                            clearAdvanceTimeout()
-                            setMode('normal')
-                            setShowHint(false)
-                            setLightningFeedback(null)
-                        }}
-                        className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                            !isLightningRound
-                                ? 'bg-white text-[#23452f] shadow-sm'
-                                : 'text-[#5a765e] hover:text-[#315c3c]'
-                        }`}
-                    >
-                        Normal
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => {
-                            clearAdvanceTimeout()
-                            setMode('lightning')
-                            setShowHint(false)
-                            setLightningFeedback(null)
-                        }}
-                        className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                            isLightningRound
-                                ? 'bg-white text-[#23452f] shadow-sm'
-                                : 'text-[#5a765e] hover:text-[#315c3c]'
-                        }`}
-                    >
-                        Lightning
-                    </button>
+                <div className="flex items-center gap-3">
+                    <div className="flex rounded-full bg-[#f7f3df] p-1 shadow-inner">
+                        <button
+                            type="button"
+                            onClick={() => {
+                                clearAdvanceTimeout()
+                                setMode('normal')
+                                setShowHint(false)
+                                setLightningFeedback(null)
+                            }}
+                            aria-pressed={!isLightningRound}
+                            className={`cursor-pointer rounded-full px-4 py-2 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#86b56b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f3df] ${
+                                !isLightningRound
+                                    ? 'bg-white text-[#23452f] shadow-sm'
+                                    : 'text-[#5a765e] hover:bg-white/70 hover:text-[#315c3c]'
+                            }`}
+                        >
+                            Normal
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                clearAdvanceTimeout()
+                                setMode('lightning')
+                                setShowHint(false)
+                                setLightningFeedback(null)
+                            }}
+                            aria-pressed={isLightningRound}
+                            className={`cursor-pointer rounded-full px-4 py-2 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#86b56b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f3df] ${
+                                isLightningRound
+                                    ? 'bg-white text-[#23452f] shadow-sm'
+                                    : 'text-[#5a765e] hover:bg-white/70 hover:text-[#315c3c]'
+                            }`}
+                        >
+                            Lightning
+                        </button>
+                    </div>
                 </div>
             </div>
 

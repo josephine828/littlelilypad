@@ -1,4 +1,6 @@
 export type FlowerDifficulty = 'Beginner' | 'Curious' | 'Botanist'
+export type QuizFocus = 'mixed' | 'picture' | 'scientificName' | 'symbolism'
+export type QuizQuestionKind = 'picture' | 'scientificName' | 'symbolism'
 
 export type Flower = {
     id: string
@@ -18,6 +20,7 @@ export type Flower = {
 export type QuizQuestion = {
     id: string
     flowerId: string
+    kind: QuizQuestionKind
     prompt: string
     imageUrl: string
     correctAnswer: string

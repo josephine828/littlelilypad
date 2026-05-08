@@ -43,9 +43,10 @@ export function QuizQuestionCard({
         <Card className="overflow-hidden p-0">
             <div className="grid gap-0 lg:grid-cols-[1fr_0.95fr]">
                 <div className="relative min-h-[320px] overflow-hidden bg-[#e9f5d8]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         src={question.imageUrl}
-                        alt="Flower quiz question"
+                        alt={question.prompt}
                         className="h-full min-h-[320px] w-full object-cover"
                     />
 
@@ -76,7 +77,7 @@ export function QuizQuestionCard({
                                     key={option}
                                     onClick={() => onSelectAnswer(option)}
                                     disabled={hasAnswered}
-                                    className={`flex items-center justify-between rounded-2xl border px-4 py-4 text-left text-sm font-bold transition ${answeredStyle}`}
+                                    className={`flex cursor-pointer items-center justify-between rounded-2xl border px-4 py-4 text-left text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#86b56b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#fffdf6] disabled:cursor-not-allowed ${answeredStyle}`}
                                 >
                                     <span className="flex min-w-0 items-center gap-3">
                                         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/80 text-xs font-black text-[#315c3c] shadow-sm">
@@ -102,7 +103,7 @@ export function QuizQuestionCard({
                         <>
                             <button
                                 onClick={onToggleHint}
-                                className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#f7f3df] px-4 py-2 text-sm font-bold text-[#3f7f55] transition hover:-translate-y-0.5"
+                                className="mt-5 inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#f7f3df] px-4 py-2 text-sm font-bold text-[#3f7f55] transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#86b56b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#fffdf6]"
                             >
                                 <Lightbulb size={16} />
                                 {showHint ? 'Hide hint' : 'Need a hint?'}
@@ -117,7 +118,8 @@ export function QuizQuestionCard({
                             {hasAnswered && (
                                 <div className="mt-5 rounded-2xl bg-[#f7f3df] p-4">
                                     <p className="text-sm font-bold text-[#315c3c]">
-                                        {selectedAnswer === question.correctAnswer
+                                        {selectedAnswer ===
+                                        question.correctAnswer
                                             ? 'Correct.'
                                             : `Not quite. It was ${question.correctAnswer}.`}
                                     </p>

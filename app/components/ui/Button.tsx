@@ -18,7 +18,7 @@ export function Button({
 
     return (
         <button
-            className={`inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold shadow-sm transition hover:-translate-y-0.5 ${styles} ${className}`}
+            className={`inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold shadow-sm transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#86b56b] focus-visible:ring-offset-2 focus-visible:ring-offset-white ${styles} ${className}`}
             {...props}
         >
             {children}
