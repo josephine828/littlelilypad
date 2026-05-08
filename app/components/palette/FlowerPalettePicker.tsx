@@ -1,6 +1,7 @@
 'use client'
 
-import { Flower2 } from 'lucide-react'
+import Image from 'next/image'
+import { Check, Flower2 } from 'lucide-react'
 import type { Flower } from '../../types'
 
 type FlowerPalettePickerProps = {
@@ -15,9 +16,9 @@ export function FlowerPalettePicker({
     onSelectFlower,
 }: FlowerPalettePickerProps) {
     return (
-        <div className="rounded-[2rem] border border-green-100 bg-white/75 p-5 shadow-sm">
-            <div className="mb-4 flex items-center gap-2 font-bold text-[#315c3c]">
-                <Flower2 size={18} />
+        <div className="rounded-[2rem] border border-green-100 bg-white/80 p-5 shadow-sm backdrop-blur">
+            <div className="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-[0.18em] text-[#5f8264]">
+                <Flower2 size={16} />
                 Choose a flower
             </div>
 
@@ -28,29 +29,42 @@ export function FlowerPalettePicker({
                     return (
                         <button
                             key={flower.id}
+                            type="button"
                             onClick={() => onSelectFlower(flower.id)}
-                            className={`rounded-2xl border p-4 text-left transition hover:-translate-y-0.5 ${
+                            className={`flex items-center gap-4 rounded-3xl border p-3 text-left transition hover:-translate-y-0.5 ${
                                 isSelected
-                                    ? 'border-[#82b366] bg-[#e4f3d3]'
-                                    : 'border-green-100 bg-[#f7f3df] hover:bg-white'
+                                    ? 'border-[#82b366] bg-[#eef8e4] shadow-[0_10px_30px_rgba(82,122,62,0.08)]'
+                                    : 'border-green-100 bg-white/90 hover:border-[#c8dfbf] hover:bg-white'
                             }`}
                         >
-                            <p className="font-heading text-xl font-bold text-[#23452f]">
-                                {flower.commonName}
-                            </p>
+                            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl border border-white bg-[#f6f3e8]">
+                                <Image
+                                    src={flower.sketch}
+                                    alt={`${flower.commonName} sketch`}
+                                    fill
+                                    sizes="56px"
+                                    className="object-cover"
+                                />
+                            </div>
 
-                            <p className="mt-1 text-xs italic text-[#6a806d]">
-                                {flower.scientificName}
-                            </p>
+                            <div className="min-w-0 flex-1">
+                                <div className="flex items-start justify-between gap-3">
+                                    <div className="min-w-0">
+                                        <p className="font-heading truncate text-lg font-bold text-[#23452f]">
+                                            {flower.commonName}
+                                        </p>
 
-                            <div className="mt-4 flex gap-1.5">
-                                {flower.colorPalette.map((color) => (
-                                    <span
-                                        key={color}
-                                        className="h-5 flex-1 rounded-full border border-white"
-                                        style={{ backgroundColor: color }}
-                                    />
-                                ))}
+                                        <p className="truncate text-xs italic text-[#6a806d]">
+                                            {flower.scientificName}
+                                        </p>
+                                    </div>
+
+                                    {isSelected && (
+                                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#82b366] text-white">
+                                            <Check size={15} />
+                                        </span>
+                                    )}
+                                </div>
                             </div>
                         </button>
                     )
