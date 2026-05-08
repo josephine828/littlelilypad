@@ -3,7 +3,7 @@ import { GardenBuilder } from '../../components/garden/GardenBuilder'
 
 export default function GardenPage() {
     return (
-        <main className="min-h-screen text-[#214432]">
+        <main className="text-[#214432]">
             <section className="relative mx-auto max-w-6xl px-6 pb-16 pt-8">
                 <div className="absolute left-[-70px] top-14 h-64 w-64 rounded-full bg-[#dff0c2] blur-3xl" />
                 <div className="absolute right-[-80px] top-40 h-72 w-72 rounded-full bg-[#f6c6d8] blur-3xl" />
@@ -15,18 +15,17 @@ export default function GardenPage() {
                     </div>
 
                     <h1 className="font-heading text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl">
-                        Plant a pocket-sized flower garden.
+                        Build your own flower garden.
                     </h1>
 
                     <p className="mt-6 max-w-2xl text-lg leading-8 text-[#4f745b]">
-                        Choose flowers from the index and arrange them into a
-                        tiny saved garden. It is part favorites list, part
-                        collection, and part cozy botanical toy.
+                        Choose your favorite flowers, arrange your garden, and
+                        come back to it anytime.
                     </p>
 
                     <div className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-[#e9f5d8] px-4 py-3 text-sm font-bold text-[#315c3c]">
                         <Flower2 size={18} />
-                        Click a planted flower to remove it
+                        Select a spot to add a flower
                     </div>
                 </div>
 

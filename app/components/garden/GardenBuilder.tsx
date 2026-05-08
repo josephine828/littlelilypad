@@ -1,48 +1,113 @@
 'use client'
 
+import { useState } from 'react'
 import { RotateCcw, Sparkles } from 'lucide-react'
 import { flowers } from '../../data/flowers'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { Button } from '../ui/Button'
-import { SectionHeader } from '../ui/SectionHeader'
-import { GardenFlowerPicker } from './GardenFlowerPicker'
 import { GardenPlot } from './GardenPlot'
 
 const MAX_PLOTS = 8
+const EMPTY_GARDEN = Array.from(
+    { length: MAX_PLOTS },
+    () => null as string | null
+)
+
+function normalizeGarden(value: unknown) {
+    if (!Array.isArray(value)) {
+        return [...EMPTY_GARDEN]
+    }
+
+    const nextGarden = [...EMPTY_GARDEN]
+    const seenFlowerIds = new Set<string>()
+    const flowerIds = value
+        .filter((flowerId): flowerId is string => typeof flowerId === 'string')
+        .filter((flowerId) => {
+            if (seenFlowerIds.has(flowerId)) {
+                return false
+            }
+
+            seenFlowerIds.add(flowerId)
+            return true
+        })
+
+    flowerIds.slice(0, MAX_PLOTS).forEach((flowerId, index) => {
+        nextGarden[index] = flowerId
+    })
+
+    return nextGarden
+}
 
 export function GardenBuilder() {
     const [plantedFlowerIds, setPlantedFlowerIds, isLoaded] = useLocalStorage<
-        string[]
-    >('littlelilypad-planted-flowers', [])
-
-    const plantedFlowers = flowers.filter((flower) =>
-        plantedFlowerIds.includes(flower.id)
+        Array<string | null>
+    >('littlelilypad-planted-flowers', [...EMPTY_GARDEN])
+    const [selectedPlotIndex, setSelectedPlotIndex] = useState<number | null>(
+        null
     )
 
-    function handlePlantFlower(flowerId: string) {
-        if (plantedFlowerIds.includes(flowerId)) return
-        if (plantedFlowerIds.length >= MAX_PLOTS) return
+    const normalizedPlantedFlowerIds = normalizeGarden(plantedFlowerIds)
+    const plantedFlowers = normalizedPlantedFlowerIds.map((flowerId) =>
+        flowerId
+            ? (flowers.find((flower) => flower.id === flowerId) ?? null)
+            : null
+    )
 
-        setPlantedFlowerIds([...plantedFlowerIds, flowerId])
+    function handleSelectPlot(plotIndex: number) {
+        setSelectedPlotIndex((current) =>
+            current === plotIndex ? null : plotIndex
+        )
     }
 
-    function handleRemoveFlower(flowerId: string) {
-        setPlantedFlowerIds(
-            plantedFlowerIds.filter(
-                (currentFlowerId) => currentFlowerId !== flowerId
+    function handlePlantFlower(flowerId: string) {
+        if (selectedPlotIndex === null) return
+
+        setPlantedFlowerIds((currentGarden) => {
+            const nextGarden = normalizeGarden(currentGarden)
+            const existingPlotIndex = nextGarden.findIndex(
+                (currentFlowerId, plotIndex) =>
+                    currentFlowerId === flowerId &&
+                    plotIndex !== selectedPlotIndex
             )
-        )
+
+            if (existingPlotIndex !== -1) {
+                nextGarden[existingPlotIndex] = null
+            }
+
+            nextGarden[selectedPlotIndex] = flowerId
+            return nextGarden
+        })
+
+        setSelectedPlotIndex(null)
     }
 
     function handlePlantSurpriseGarden() {
         const shuffledFlowers = [...flowers].sort(() => Math.random() - 0.5)
-        setPlantedFlowerIds(
-            shuffledFlowers.slice(0, MAX_PLOTS).map((f) => f.id)
-        )
+        const nextGarden = [...EMPTY_GARDEN]
+
+        shuffledFlowers.slice(0, MAX_PLOTS).forEach((flower, index) => {
+            nextGarden[index] = flower.id
+        })
+
+        setPlantedFlowerIds(nextGarden)
+        setSelectedPlotIndex(null)
     }
 
     function handleClearGarden() {
-        setPlantedFlowerIds([])
+        setPlantedFlowerIds([...EMPTY_GARDEN])
+        setSelectedPlotIndex(null)
+    }
+
+    function handleClearPlot() {
+        if (selectedPlotIndex === null) return
+
+        setPlantedFlowerIds((currentGarden) => {
+            const nextGarden = normalizeGarden(currentGarden)
+            nextGarden[selectedPlotIndex] = null
+            return nextGarden
+        })
+
+        setSelectedPlotIndex(null)
     }
 
     if (!isLoaded) {
@@ -57,29 +122,22 @@ export function GardenBuilder() {
         <div className="grid gap-10">
             <section className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
                 <GardenPlot
+                    flowers={flowers}
                     plantedFlowers={plantedFlowers}
-                    maxPlots={MAX_PLOTS}
-                    onRemoveFlower={handleRemoveFlower}
+                    selectedPlotIndex={selectedPlotIndex}
+                    onSelectPlot={handleSelectPlot}
+                    onPlantFlower={handlePlantFlower}
+                    onClearPlot={handleClearPlot}
                 />
 
                 <div className="rounded-[2rem] bg-[#e9f5d8] p-6">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#3f8f5c]">
-                        <Sparkles size={24} />
-                    </div>
-
                     <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#6a9b6f]">
-                        Garden mood
+                        Garden corner
                     </p>
 
                     <h3 className="font-heading mt-2 text-4xl font-bold leading-none text-[#23452f]">
-                        Build a tiny place for your favorite blooms.
+                        Plant flowers wherever you'd like.
                     </h3>
-
-                    <p className="mt-4 leading-7 text-[#5a765e]">
-                        Plant flowers into your garden, remove them by clicking
-                        a planted bloom, or let LittleLilypad choose a surprise
-                        garden for you.
-                    </p>
 
                     <div className="mt-6 flex flex-col gap-3">
                         <Button onClick={handlePlantSurpriseGarden}>
@@ -93,21 +151,6 @@ export function GardenBuilder() {
                         </Button>
                     </div>
                 </div>
-            </section>
-
-            <section>
-                <SectionHeader
-                    eyebrow="Flower shelf"
-                    title="Choose what to plant"
-                    description="This currently saves to localStorage, so your garden will stay planted on this browser."
-                />
-
-                <GardenFlowerPicker
-                    flowers={flowers}
-                    plantedFlowerIds={plantedFlowerIds}
-                    maxPlots={MAX_PLOTS}
-                    onPlantFlower={handlePlantFlower}
-                />
             </section>
         </div>
     )
