@@ -42,13 +42,17 @@ export function QuizQuestionCard({
     return (
         <Card className="overflow-hidden p-0">
             <div className="grid gap-0 lg:grid-cols-[1fr_0.95fr]">
-                <div className="relative min-h-[320px] overflow-hidden bg-[#e9f5d8]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                        src={question.imageUrl}
-                        alt={question.prompt}
-                        className="h-full min-h-[320px] w-full object-cover"
-                    />
+                <div className="relative overflow-hidden p-6">
+                    <div className="relative mx-auto h-[480px] w-full max-w-[520px] rotate-[-2deg] rounded-[1.75rem] bg-[#fffdf6] p-3 shadow-[0_18px_40px_rgba(49,92,60,0.18)] ring-1 ring-black/5">
+                        <div className="absolute -top-3 left-1/2 z-10 h-7 w-28 -translate-x-1/2 rotate-[2deg] rounded-sm bg-[#f7e7a6]/80 shadow-sm backdrop-blur-sm" />
+
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            src={question.imageUrl}
+                            alt={question.prompt}
+                            className="h-full w-full rounded-[1.25rem] object-cover"
+                        />
+                    </div>
 
                     <div className="absolute left-5 top-5 rounded-full bg-white/85 px-4 py-2 text-sm font-bold text-[#315c3c] shadow-sm backdrop-blur">
                         Question {questionNumber} of {totalQuestions}
@@ -140,7 +144,7 @@ export function QuizQuestionCard({
                             </p>
                             <p className="mt-1 text-sm leading-6 text-[#5a765e]">
                                 {lightningFeedback.isCorrect
-                                    ? 'Nice hit. Moving on.'
+                                    ? 'Great job! Moving on.'
                                     : `You picked ${lightningFeedback.selectedAnswer}.`}
                             </p>
                         </div>
