@@ -1,16 +1,24 @@
 import Image from 'next/image'
-import { BookOpen, Heart, Leaf, MapPin, Palette } from 'lucide-react'
-import type { Flower } from '../../types'
+import { BookOpen, Heart, Leaf, MapPin, Palette, Flower2 } from 'lucide-react'
+import type { Flower, CardVariant } from '../../types'
 import { Badge } from '../ui/Badge'
 import { Card } from '../ui/Card'
 
 type FlowerDetailCardProps = {
     flower: Flower
+    variant?: CardVariant
 }
 
-export function FlowerDetailCard({ flower }: FlowerDetailCardProps) {
+export function FlowerDetailCard({
+    flower,
+    variant = 'notebook',
+}: FlowerDetailCardProps) {
     return (
-        <Card className="group relative overflow-hidden transition hover:-translate-y-1 hover:shadow-xl hover:shadow-green-900/10">
+        <Card
+            variant={variant}
+            tabIcon={<Flower2 size={18} />}
+            className="group relative overflow-hidden transition hover:-translate-y-1 hover:shadow-xl hover:shadow-green-900/10"
+        >
             <div className="absolute right-5 top-5 opacity-40 transition group-hover:rotate-6 group-hover:scale-110">
                 <Image
                     src={flower.sketch}
@@ -33,9 +41,9 @@ export function FlowerDetailCard({ flower }: FlowerDetailCardProps) {
                         </p>
                     </div>
 
-                    <button className="flex h-11 w-11 items-center justify-center rounded-full bg-[#f8dde8] text-[#b54a73] transition hover:scale-105">
+                    {/* <button className="flex h-11 w-11 items-center justify-center rounded-full bg-[#f8dde8] text-[#b54a73] transition hover:scale-105">
                         <Heart size={20} />
-                    </button>
+                    </button> */}
                 </div>
 
                 <div className="mb-5 flex flex-wrap gap-2">

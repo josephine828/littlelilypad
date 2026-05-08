@@ -6,6 +6,15 @@ import { flowers } from '../../data/flowers'
 import { FlowerDetailCard } from './FlowerDetailCard'
 import { FlowerFilters } from './FlowerFilters'
 
+const cardVariants = [
+    'notebook',
+    'taped',
+    'pressed',
+    'specimen',
+    'bookmark',
+    'watercolor',
+] as const
+
 export function FlowerIndex() {
     const [search, setSearch] = useState('')
     const [difficulty, setDifficulty] = useState<'All' | FlowerDifficulty>(
@@ -80,8 +89,12 @@ export function FlowerIndex() {
 
             {filteredFlowers.length > 0 ? (
                 <div className="grid gap-5 lg:grid-cols-2">
-                    {filteredFlowers.map((flower) => (
-                        <FlowerDetailCard key={flower.id} flower={flower} />
+                    {filteredFlowers.map((flower, index) => (
+                        <FlowerDetailCard
+                            key={flower.id}
+                            flower={flower}
+                            variant={cardVariants[index % cardVariants.length]}
+                        />
                     ))}
                 </div>
             ) : (

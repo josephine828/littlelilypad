@@ -17,6 +17,14 @@ export type Flower = {
     imageUrl?: string
 }
 
+export type CardVariant =
+    | 'notebook'
+    | 'taped'
+    | 'pressed'
+    | 'specimen'
+    | 'bookmark'
+    | 'watercolor'
+
 export type QuizQuestion = {
     id: string
     flowerId: string
