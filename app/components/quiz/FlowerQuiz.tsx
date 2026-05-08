@@ -21,9 +21,10 @@ export function FlowerQuiz() {
 
     const currentQuestion = questions[currentIndex] ?? null
     const selectedAnswer = currentQuestion
-        ? answers[currentQuestion.id] ?? null
+        ? (answers[currentQuestion.id] ?? null)
         : null
-    const isLastQuestion = questions.length > 0 && currentIndex === questions.length - 1
+    const isLastQuestion =
+        questions.length > 0 && currentIndex === questions.length - 1
     const isFinished = showResults
 
     useEffect(() => {
@@ -40,8 +41,7 @@ export function FlowerQuiz() {
             if (
                 activeElement instanceof HTMLInputElement ||
                 activeElement instanceof HTMLTextAreaElement ||
-                activeElement instanceof HTMLSelectElement ||
-                activeElement?.isContentEditable
+                activeElement instanceof HTMLSelectElement
             ) {
                 return
             }
@@ -150,10 +150,7 @@ export function FlowerQuiz() {
                     <RotateCcw size={18} />
                 </Button>
 
-                <Button
-                    onClick={handleNext}
-                    disabled={!selectedAnswer}
-                >
+                <Button onClick={handleNext} disabled={!selectedAnswer}>
                     {isLastQuestion ? 'See Results' : 'Next Question'}
                     <ArrowRight size={18} />
                 </Button>
