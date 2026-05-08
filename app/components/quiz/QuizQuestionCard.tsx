@@ -1,6 +1,6 @@
 'use client'
 
-import { Check, CircleHelp, Lightbulb, X } from 'lucide-react'
+import { Check, Lightbulb, X } from 'lucide-react'
 import type { QuizQuestion } from '../../types'
 import { Card } from '../ui/Card'
 
@@ -12,6 +12,13 @@ type QuizQuestionCardProps = {
     onSelectAnswer: (answer: string) => void
     showHint: boolean
     onToggleHint: () => void
+    mode: 'normal' | 'lightning'
+    lightningFeedback: {
+        correctAnswer: string
+        isCorrect: boolean
+        questionId: string
+        selectedAnswer: string
+    } | null
 }
 
 export function QuizQuestionCard({
@@ -22,8 +29,15 @@ export function QuizQuestionCard({
     onSelectAnswer,
     showHint,
     onToggleHint,
+    mode,
+    lightningFeedback,
 }: QuizQuestionCardProps) {
     const hasAnswered = selectedAnswer !== null
+    const isLightningRound = mode === 'lightning'
+    const showLightningFeedback =
+        isLightningRound &&
+        lightningFeedback?.questionId === question.id &&
+        hasAnswered
 
     return (
         <Card className="overflow-hidden p-0">
@@ -84,29 +98,48 @@ export function QuizQuestionCard({
                         })}
                     </div>
 
-                    <button
-                        onClick={onToggleHint}
-                        className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#f7f3df] px-4 py-2 text-sm font-bold text-[#3f7f55] transition hover:-translate-y-0.5"
-                    >
-                        <Lightbulb size={16} />
-                        {showHint ? 'Hide hint' : 'Need a hint?'}
-                    </button>
+                    {!isLightningRound && (
+                        <>
+                            <button
+                                onClick={onToggleHint}
+                                className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#f7f3df] px-4 py-2 text-sm font-bold text-[#3f7f55] transition hover:-translate-y-0.5"
+                            >
+                                <Lightbulb size={16} />
+                                {showHint ? 'Hide hint' : 'Need a hint?'}
+                            </button>
 
-                    {showHint && (
-                        <p className="mt-3 rounded-2xl bg-[#f7f3df] p-4 text-sm leading-6 text-[#5a765e]">
-                            {question.hint}
-                        </p>
+                            {showHint && (
+                                <p className="mt-3 rounded-2xl bg-[#f7f3df] p-4 text-sm leading-6 text-[#5a765e]">
+                                    {question.hint}
+                                </p>
+                            )}
+
+                            {hasAnswered && (
+                                <div className="mt-5 rounded-2xl bg-[#f7f3df] p-4">
+                                    <p className="text-sm font-bold text-[#315c3c]">
+                                        {selectedAnswer === question.correctAnswer
+                                            ? 'Correct.'
+                                            : `Not quite. It was ${question.correctAnswer}.`}
+                                    </p>
+                                    <p className="mt-1 text-sm leading-6 text-[#5a765e]">
+                                        {question.fact}
+                                    </p>
+                                </div>
+                            )}
+                        </>
                     )}
 
-                    {hasAnswered && (
+                    {showLightningFeedback && (
                         <div className="mt-5 rounded-2xl bg-[#f7f3df] p-4">
                             <p className="text-sm font-bold text-[#315c3c]">
-                                {selectedAnswer === question.correctAnswer
+                                {lightningFeedback.isCorrect
                                     ? 'Correct.'
-                                    : `Not quite. It was ${question.correctAnswer}.`}
+                                    : `Not quite. It was ${lightningFeedback.correctAnswer}.`}
                             </p>
                             <p className="mt-1 text-sm leading-6 text-[#5a765e]">
-                                {question.fact}
+                                {lightningFeedback.isCorrect
+                                    ? 'Nice hit. Moving on.'
+                                    : `You picked ${lightningFeedback.selectedAnswer}.`}
                             </p>
                         </div>
                     )}

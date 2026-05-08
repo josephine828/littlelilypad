@@ -19,9 +19,10 @@ export default function QuizPage() {
                     </h1>
 
                     <p className="mt-6 max-w-2xl text-lg leading-8 text-[#4f745b]">
-                        Practice identifying flowers by sight. Each answer
-                        reveals a small fact, so even a missed guess still grows
-                        your garden knowledge.
+                        Practice identifying flowers by sight. Switch between a
+                        normal study mode with hints and fun facts, or a
+                        lightning round that jumps straight to the next flower
+                        after every answer.
                     </p>
 
                     <div className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-[#e9f5d8] px-4 py-3 text-sm font-bold text-[#315c3c]">
