@@ -75,13 +75,13 @@ export default function Home() {
                     />
 
                     <div className="grid gap-5 md:grid-cols-3">
-                        <Link href="/quiz">
+                        <Link href="/quiz" className="block h-full">
                             <QuizPreview />
                         </Link>
-                        <Link href="/palette">
+                        <Link href="/palette" className="block h-full">
                             <PalettePreview />
                         </Link>
-                        <Link href="/garden">
+                        <Link href="/garden" className="block h-full">
                             <GardenPreview />
                         </Link>
                     </div>
