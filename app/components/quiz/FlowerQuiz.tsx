@@ -13,16 +13,79 @@ export function FlowerQuiz() {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [answers, setAnswers] = useState<Record<string, string>>({})
     const [showHint, setShowHint] = useState(false)
+    const [showResults, setShowResults] = useState(false)
 
     useEffect(() => {
         setQuestions(buildFlowerQuiz())
     }, [])
+
+    const currentQuestion = questions[currentIndex] ?? null
+    const selectedAnswer = currentQuestion
+        ? answers[currentQuestion.id] ?? null
+        : null
+    const isLastQuestion = questions.length > 0 && currentIndex === questions.length - 1
+    const isFinished = showResults
+
+    useEffect(() => {
+        function handleKeyDown(event: KeyboardEvent) {
+            if (!currentQuestion) {
+                return
+            }
+
+            if (event.metaKey || event.ctrlKey || event.altKey) {
+                return
+            }
+
+            const activeElement = document.activeElement
+            if (
+                activeElement instanceof HTMLInputElement ||
+                activeElement instanceof HTMLTextAreaElement ||
+                activeElement instanceof HTMLSelectElement ||
+                activeElement?.isContentEditable
+            ) {
+                return
+            }
+
+            if (event.key === 'Enter') {
+                if (selectedAnswer) {
+                    event.preventDefault()
+                    handleNext()
+                }
+
+                return
+            }
+
+            if (showResults || selectedAnswer) {
+                return
+            }
+
+            const optionIndex = Number(event.key) - 1
+            if (optionIndex < 0 || optionIndex > 3) {
+                return
+            }
+
+            const option = currentQuestion.options[optionIndex]
+            if (option) {
+                setAnswers((currentAnswers) => ({
+                    ...currentAnswers,
+                    [currentQuestion.id]: option,
+                }))
+            }
+        }
+
+        window.addEventListener('keydown', handleKeyDown)
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown)
+        }
+    }, [currentQuestion, selectedAnswer, showResults])
 
     function handleRestart() {
         setQuestions(buildFlowerQuiz())
         setCurrentIndex(0)
         setAnswers({})
         setShowHint(false)
+        setShowResults(false)
     }
 
     if (questions.length === 0) {
@@ -33,8 +96,7 @@ export function FlowerQuiz() {
         )
     }
 
-    const currentQuestion = questions[currentIndex]
-    const selectedAnswer = answers[currentQuestion.id] ?? null
+    const activeQuestion = questions[currentIndex]
 
     const score = questions.reduce((total, question) => {
         return answers[question.id] === question.correctAnswer
@@ -42,23 +104,22 @@ export function FlowerQuiz() {
             : total
     }, 0)
 
-    const isLastQuestion = currentIndex === questions.length - 1
-    const isFinished =
-        Object.keys(answers).length === questions.length && isLastQuestion
-
     function handleSelectAnswer(answer: string) {
         setAnswers((currentAnswers) => ({
             ...currentAnswers,
-            [currentQuestion.id]: answer,
+            [activeQuestion.id]: answer,
         }))
     }
 
     function handleNext() {
         setShowHint(false)
 
-        if (!isLastQuestion) {
-            setCurrentIndex((index) => index + 1)
+        if (isLastQuestion) {
+            setShowResults(true)
+            return
         }
+
+        setCurrentIndex((index) => index + 1)
     }
 
     if (isFinished) {
@@ -74,7 +135,7 @@ export function FlowerQuiz() {
     return (
         <div className="grid gap-6">
             <QuizQuestionCard
-                question={currentQuestion}
+                question={activeQuestion}
                 questionNumber={currentIndex + 1}
                 totalQuestions={questions.length}
                 selectedAnswer={selectedAnswer}
@@ -91,9 +152,9 @@ export function FlowerQuiz() {
 
                 <Button
                     onClick={handleNext}
-                    disabled={!selectedAnswer || isLastQuestion}
+                    disabled={!selectedAnswer}
                 >
-                    Next Question
+                    {isLastQuestion ? 'See Results' : 'Next Question'}
                     <ArrowRight size={18} />
                 </Button>
             </div>

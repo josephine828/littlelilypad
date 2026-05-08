@@ -15,7 +15,7 @@ export default function QuizPage() {
                     </div>
 
                     <h1 className="font-heading text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl">
-                        Can you name that bloom?
+                        Can you name that flower?
                     </h1>
 
                     <p className="mt-6 max-w-2xl text-lg leading-8 text-[#4f745b]">
@@ -26,7 +26,7 @@ export default function QuizPage() {
 
                     <div className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-[#e9f5d8] px-4 py-3 text-sm font-bold text-[#315c3c]">
                         <Flower2 size={18} />
-                        Image-based quiz mode
+                        Try to identify a flower
                     </div>
                 </div>
 

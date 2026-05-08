@@ -51,7 +51,7 @@ export function QuizQuestionCard({
                     </h2>
 
                     <div className="mt-6 grid gap-3">
-                        {question.options.map((option) => {
+                        {question.options.map((option, index) => {
                             const isSelected = selectedAnswer === option
                             const isCorrect = question.correctAnswer === option
 
@@ -69,7 +69,12 @@ export function QuizQuestionCard({
                                     disabled={hasAnswered}
                                     className={`flex items-center justify-between rounded-2xl border px-4 py-4 text-left text-sm font-bold transition ${answeredStyle}`}
                                 >
-                                    {option}
+                                    <span className="flex min-w-0 items-center gap-3">
+                                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/80 text-xs font-black text-[#315c3c] shadow-sm">
+                                            {index + 1}
+                                        </span>
+                                        <span className="truncate">{option}</span>
+                                    </span>
 
                                     {hasAnswered && isCorrect && (
                                         <Check size={18} />
