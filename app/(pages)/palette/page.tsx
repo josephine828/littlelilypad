@@ -15,17 +15,18 @@ export default function PalettePage() {
                     </div>
 
                     <h1 className="font-heading text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl">
-                        Turn a flower into a color story.
+                        Create color palettes inspired by flowers.
                     </h1>
 
                     <p className="mt-6 max-w-2xl text-lg leading-8 text-[#4f745b]">
-                        Choose a flower and collect its colors as hex codes, CSS
-                        variables, and inspiration for soft botanical designs.
+                        Pick a flower to explore its colors, copy hex codes, and
+                        build soft natural palettes for your projects or
+                        designs.
                     </p>
 
                     <div className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-[#e9f5d8] px-4 py-3 text-sm font-bold text-[#315c3c]">
                         <Sparkles size={18} />
-                        Starter palette mode
+                        Select a flower to begin
                     </div>
                 </div>
 
