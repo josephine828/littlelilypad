@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { AppFooter } from './components/layout/AppFooter'
 import { AppHeader } from './components/layout/AppHeader'
 import { LilyPadBackground } from './components/layout/LilyPadBackground'
 
@@ -17,10 +18,11 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <div className="relative isolate min-h-screen">
+                <div className="relative isolate flex min-h-screen flex-col">
                     <LilyPadBackground />
                     <AppHeader />
-                    {children}
+                    <div className="flex-1">{children}</div>
+                    <AppFooter />
                 </div>
             </body>
         </html>
