@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Search, Sprout, WandSparkles } from 'lucide-react'
 import { GardenPreview } from './components/garden/GardenPreview'
+import { InstagramFeedPreview } from './components/social/InstagramFeedPreview'
 import { PalettePreview } from './components/palette/PalettePreview'
 import { QuizPreview } from './components/quiz/QuizPreview'
 import { FlowerOfTheDay } from './components/randomizer/FlowerOfTheDay'
@@ -85,6 +86,16 @@ export default function Home() {
                             <GardenPreview />
                         </Link>
                     </div>
+                </section>
+
+                <section>
+                    <SectionHeader
+                        eyebrow="Social"
+                        title="Live from Instagram"
+                        description="A little corner of Instagram where I share whatever floral moment I'm currently obsessed with. :D"
+                    />
+
+                    <InstagramFeedPreview />
                 </section>
             </div>
         </main>
