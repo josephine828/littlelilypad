@@ -8,10 +8,18 @@ import { SectionHeader } from '../ui/SectionHeader'
 import { FlowerPalettePicker } from './FlowerPalettePicker'
 import { PaletteSwatch } from './PaletteSwatch'
 
+type PaletteSelection = {
+    key: string
+    name: string
+    colors: string[]
+    notes?: string
+}
+
 export function PaletteCreator() {
     const [selectedFlowerId, setSelectedFlowerId] = useState(
         flowers[0]?.id ?? ''
     )
+    const [selectedPaletteKey, setSelectedPaletteKey] = useState('default')
 
     const selectedFlower = useMemo(() => {
         return (
@@ -20,9 +28,41 @@ export function PaletteCreator() {
         )
     }, [selectedFlowerId])
 
+    const paletteSelections = useMemo<PaletteSelection[]>(() => {
+        if (!selectedFlower) {
+            return []
+        }
+
+        return [
+            {
+                key: 'default',
+                name: 'Original palette',
+                colors: selectedFlower.colorPalette,
+            },
+            ...(selectedFlower.alternateColorPalettes ?? []).map(
+                (palette, index) => ({
+                    key: `alternate-${index}`,
+                    name: palette.name ?? `Alternate palette ${index + 1}`,
+                    colors: palette.colors,
+                    notes: palette.notes,
+                })
+            ),
+        ]
+    }, [selectedFlower])
+
+    const activePalette =
+        paletteSelections.find((palette) => palette.key === selectedPaletteKey) ??
+        paletteSelections[0]
+
+    function handleSelectFlower(flowerId: string) {
+        setSelectedFlowerId(flowerId)
+        setSelectedPaletteKey('default')
+    }
+
     function handleRandomize() {
         const randomFlower = flowers[Math.floor(Math.random() * flowers.length)]
         setSelectedFlowerId(randomFlower.id)
+        setSelectedPaletteKey('default')
     }
 
     return (
@@ -30,7 +70,7 @@ export function PaletteCreator() {
             <FlowerPalettePicker
                 flowers={flowers}
                 selectedFlowerId={selectedFlower.id}
-                onSelectFlower={setSelectedFlowerId}
+                onSelectFlower={handleSelectFlower}
             />
 
             <section className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
@@ -38,7 +78,7 @@ export function PaletteCreator() {
                     <SectionHeader
                         eyebrow="Flower colors"
                         title={`${selectedFlower.commonName} palette`}
-                        description={`Click any swatch to copy its hex code.`}
+                        description="Choose a palette below, then click any swatch to copy its hex code."
                     />
 
                     <div className="mb-5 flex flex-wrap gap-3">
@@ -49,15 +89,61 @@ export function PaletteCreator() {
                     </div>
 
                     <div className="grid gap-4 sm:grid-cols-2">
-                        {selectedFlower.colorPalette.map((color, index) => (
-                            <PaletteSwatch
-                                key={color}
-                                color={color}
-                                label={`${selectedFlower.commonName} ${index + 1}`}
-                            />
+                        {activePalette.colors.map((color) => (
+                            <PaletteSwatch key={color} color={color} />
                         ))}
                     </div>
+
+                    {paletteSelections.length > 1 && (
+                        <div className="mt-6 rounded-3xl border border-[#d7e8c1] bg-white/70 p-4">
+                            <p className="text-sm font-bold text-[#315c3c]">
+                                Palettes
+                            </p>
+
+                            <div className="mt-3 grid gap-3">
+                                {paletteSelections.map((palette) => {
+                                    const isSelected =
+                                        palette.key === selectedPaletteKey
+
+                                    return (
+                                        <button
+                                            key={palette.key}
+                                            type="button"
+                                            onClick={() =>
+                                                setSelectedPaletteKey(palette.key)
+                                            }
+                                            className={`rounded-2xl border p-3 text-left shadow-sm transition hover:-translate-y-0.5 ${
+                                                isSelected
+                                                    ? 'border-[#82b366] bg-[#eef8e4]'
+                                                    : 'border-white/70 bg-white/80'
+                                            }`}
+                                        >
+                                            <div className="flex items-center justify-between gap-3">
+                                                <div>
+                                                    <p className="text-sm font-bold text-[#23452f]">
+                                                        {palette.name}
+                                                    </p>
+                                                    {palette.notes && (
+                                                        <p className="mt-1 text-xs leading-5 text-[#6a806d]">
+                                                            {palette.notes}
+                                                        </p>
+                                                    )}
+                                                </div>
+
+                                                <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-[#3f7f55]">
+                                                    {isSelected
+                                                        ? 'Selected'
+                                                        : 'View'}
+                                                </span>
+                                            </div>
+                                        </button>
+                                    )
+                                })}
+                            </div>
+                        </div>
+                    )}
                 </div>
+
                 <div className="relative overflow-hidden rounded-[2rem] border border-green-100 bg-[#e9f5d8] p-6 shadow-sm">
                     <div className="absolute -right-12 -top-12 h-36 w-36 rounded-full bg-white/40" />
                     <div className="absolute -bottom-16 left-6 h-40 w-40 rounded-full bg-[#d6edbd]/70" />
@@ -81,17 +167,43 @@ export function PaletteCreator() {
 
                         <div className="mt-5 rounded-3xl bg-white/55 p-3 shadow-inner">
                             <div className="flex overflow-hidden rounded-2xl">
-                                {selectedFlower.colorPalette
-                                    .slice(0, 5)
-                                    .map((color) => (
-                                        <span
-                                            key={color}
-                                            className="h-12 flex-1"
-                                            style={{ backgroundColor: color }}
-                                        />
-                                    ))}
+                                {activePalette.colors.slice(0, 5).map((color) => (
+                                    <span
+                                        key={color}
+                                        className="h-12 flex-1"
+                                        style={{ backgroundColor: color }}
+                                    />
+                                ))}
                             </div>
                         </div>
+
+                        {selectedFlower.colorMeanings?.length ? (
+                            <div className="mt-5 rounded-3xl border border-white/70 bg-white/75 p-4 shadow-sm">
+                                <p className="text-sm font-bold text-[#315c3c]">
+                                    Color meanings
+                                </p>
+
+                                <div className="mt-3 space-y-3">
+                                    {selectedFlower.colorMeanings.map((item) => (
+                                        <div
+                                            key={item.label}
+                                            className="flex items-start gap-3"
+                                        >
+                                            <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-[#9ccf7f]" />
+                                            <div className="min-w-0">
+                                                <p className="text-sm font-medium text-[#23452f]">
+                                                    {item.label}
+                                                </p>
+                                                <p className="text-sm leading-6 text-[#5a765e]">
+                                                    {item.meaning}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ) : null}
+
                         <div className="mt-6 grid gap-3">
                             <div className="grid gap-3 md:grid-cols-2">
                                 {selectedFlower.symbolism && (

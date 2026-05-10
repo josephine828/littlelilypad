@@ -6,10 +6,9 @@ import { copyToClipboard, getReadableTextColor } from '../../utils/colorUtils'
 
 type PaletteSwatchProps = {
     color: string
-    label: string
 }
 
-export function PaletteSwatch({ color, label }: PaletteSwatchProps) {
+export function PaletteSwatch({ color }: PaletteSwatchProps) {
     const [copied, setCopied] = useState(false)
 
     async function handleCopy() {
@@ -30,10 +29,11 @@ export function PaletteSwatch({ color, label }: PaletteSwatchProps) {
                 color: getReadableTextColor(color),
             }}
         >
-            <span className="text-sm font-bold">{label}</span>
-
-            <span className="flex items-center justify-between gap-3 text-sm font-bold">
+            <span className="text-sm font-bold uppercase tracking-[0.14em]">
                 {color.toUpperCase()}
+            </span>
+
+            <span className="flex items-center justify-end gap-3 text-sm font-bold">
                 {copied ? <Check size={17} /> : <Copy size={17} />}
             </span>
         </button>

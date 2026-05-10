@@ -103,6 +103,29 @@ export function FlowerDetailCard({
                         ))}
                     </div>
                 </div>
+                {flower.colorMeanings?.length ? (
+                    <div className="mb-6 rounded-[1.5rem] border border-white/70 bg-white/50 p-4 shadow-inner">
+                        <p className="mb-3 text-sm font-bold text-[#315c3c]">
+                            Color meanings
+                        </p>
+                        <div className="space-y-3 text-sm leading-6 text-[#5a765e]">
+                            {flower.colorMeanings.map((item) => (
+                                <div
+                                    key={item.label}
+                                    className="flex items-start gap-3"
+                                >
+                                    <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-[#9ccf7f]" />
+                                    <div className="min-w-0">
+                                        <p className="font-medium text-[#23452f]">
+                                            {item.label}
+                                        </p>
+                                        <p>{item.meaning}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ) : null}
                 <div className="rounded-[1.5rem] border border-white/70 bg-white/50 p-5 shadow-inner">
                     <p className="mb-2 text-sm font-bold text-[#315c3c]">
                         Fun facts

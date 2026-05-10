@@ -10,6 +10,24 @@ export const flowers: Flower[] = [
         origin: 'Asia, Europe, North America, and northwest Africa',
         bloomSeason: 'Spring through fall',
         colorPalette: ['#8F1D2C', '#D94F70', '#F7B7C8', '#FFF5F7'],
+        colorMeanings: [
+            { label: 'Red', meaning: 'Classic color for deep love and romance.' },
+            { label: 'Pink', meaning: 'Soft color for admiration and grace.' },
+            { label: 'Blush', meaning: 'Pale blush for sweetness and tenderness.' },
+            { label: 'Ivory', meaning: 'Light neutral for purity and new beginnings.' },
+        ],
+        alternateColorPalettes: [
+            {
+                name: 'Garden blush',
+                colors: ['#B45A6F', '#E39AAE', '#F7D8DE', '#FFF8FA'],
+                notes: 'A lighter, more romantic palette for spring varieties.',
+            },
+            {
+                name: 'Velvet dusk',
+                colors: ['#5F1221', '#A73C55', '#D98B9A', '#F6E3E7'],
+                notes: 'A moodier palette inspired by darker rose cultivars.',
+            },
+        ],
         funFacts: [
             'Roses have been cultivated for thousands of years.',
             'Some rose hips are used in teas and jams.',
@@ -29,6 +47,19 @@ export const flowers: Flower[] = [
         origin: 'North America',
         bloomSeason: 'Summer to early fall',
         colorPalette: ['#F6C445', '#E89B25', '#5F4B2B', '#FDF4CF'],
+        colorMeanings: [
+            { label: 'Gold', meaning: 'Bright and cheerful, often linked with happiness.' },
+            { label: 'Amber', meaning: 'Warm and energetic, with an abundant feel.' },
+            { label: 'Brown', meaning: 'Earthy and grounded, echoing the seed head.' },
+            { label: 'Cream', meaning: 'Soft highlight that lightens the palette.' },
+        ],
+        alternateColorPalettes: [
+            {
+                name: 'Late summer',
+                colors: ['#E3A61A', '#C77E12', '#6A4522', '#FFF0B8'],
+                notes: 'A deeper palette that feels sun-baked and late-season.',
+            },
+        ],
         funFacts: [
             'Young sunflowers can turn toward the sun as they grow.',
             'A sunflower head is made of many tiny flowers.',
@@ -67,6 +98,19 @@ export const flowers: Flower[] = [
         origin: 'Mediterranean region',
         bloomSeason: 'Late spring through summer',
         colorPalette: ['#7E6AA8', '#B8A6D9', '#D8CFF0', '#EEF0D8'],
+        colorMeanings: [
+            { label: 'Purple', meaning: 'Classic lavender shade for calm and serenity.' },
+            { label: 'Lilac', meaning: 'Soft and gentle with a reflective feel.' },
+            { label: 'Violet', meaning: 'Pale violet that feels quiet and airy.' },
+            { label: 'Herb Green', meaning: 'Muted green that grounds the floral shades.' },
+        ],
+        alternateColorPalettes: [
+            {
+                name: 'Fresh herb',
+                colors: ['#6F8A5A', '#A6B78A', '#DDE5C8', '#F7F5E8'],
+                notes: 'A greener palette inspired by lavender stems and foliage.',
+            },
+        ],
         funFacts: [
             'Lavender is known for its calming scent.',
             'Its flowers are often dried for sachets and teas.',
@@ -86,6 +130,19 @@ export const flowers: Flower[] = [
         origin: 'East Asia',
         bloomSeason: 'Spring',
         colorPalette: ['#F8B7C9', '#FADCE5', '#7C9A6D', '#FFF8F1'],
+        colorMeanings: [
+            { label: 'Blossom Pink', meaning: 'A spring color linked with renewal and fleeting beauty.' },
+            { label: 'Soft Pink', meaning: 'A lighter pink for softness and remembrance.' },
+            { label: 'Leaf Green', meaning: 'A natural shade that suggests balance and change.' },
+            { label: 'Warm Cream', meaning: 'A clean, airy neutral for spring.' },
+        ],
+        alternateColorPalettes: [
+            {
+                name: 'Spring dusk',
+                colors: ['#E89AB4', '#F4C8D5', '#A2B78C', '#FAF2EA'],
+                notes: 'A slightly warmer palette for deeper pink blossoms.',
+            },
+        ],
         funFacts: [
             'Cherry blossoms are celebrated during spring festivals.',
             'Their bloom period is often very short.',

@@ -2,6 +2,17 @@ export type FlowerDifficulty = 'Beginner' | 'Curious' | 'Botanist'
 export type QuizFocus = 'mixed' | 'picture' | 'scientificName' | 'symbolism'
 export type QuizQuestionKind = 'picture' | 'scientificName' | 'symbolism'
 
+export type FlowerColorMeaning = {
+    label: string
+    meaning: string
+}
+
+export type FlowerColorPalette = {
+    name?: string
+    colors: string[]
+    notes?: string
+}
+
 export type Flower = {
     id: string
     commonName: string
@@ -11,6 +22,8 @@ export type Flower = {
     origin: string
     bloomSeason: string
     colorPalette: string[]
+    colorMeanings?: FlowerColorMeaning[]
+    alternateColorPalettes?: FlowerColorPalette[]
     funFacts: string[]
     careDifficulty: FlowerDifficulty
     sketch: string
