@@ -1,5 +1,10 @@
 import { BookOpen } from 'lucide-react'
+import type { Metadata } from 'next'
 import { FlowerIndex } from '../../components/flowers/FlowerIndex'
+
+export const metadata: Metadata = {
+    title: 'Flower Index',
+}
 
 export default function FlowerIndexPage() {
     return (

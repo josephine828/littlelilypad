@@ -1,5 +1,10 @@
 import { Flower2, Sprout } from 'lucide-react'
+import type { Metadata } from 'next'
 import { GardenBuilder } from '../../components/garden/GardenBuilder'
+
+export const metadata: Metadata = {
+    title: 'My Garden',
+}
 
 export default function GardenPage() {
     return (

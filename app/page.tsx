@@ -9,6 +9,11 @@ import { FlowerOfTheDay } from './components/randomizer/FlowerOfTheDay'
 import { Button } from './components/ui/Button'
 import { SectionHeader } from './components/ui/SectionHeader'
 import { getFlowerOfTheDay } from './utils/flowerUtils'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Home | Little LilyPad',
+}
 
 export default function Home() {
     const flowerOfTheDay = getFlowerOfTheDay()

@@ -1,5 +1,10 @@
 import { CircleHelp, Flower2 } from 'lucide-react'
+import type { Metadata } from 'next'
 import { FlowerQuiz } from '../../components/quiz/FlowerQuiz'
+
+export const metadata: Metadata = {
+    title: 'Flower Quiz',
+}
 
 export default function QuizPage() {
     return (

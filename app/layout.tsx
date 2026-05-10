@@ -5,7 +5,10 @@ import { AppHeader } from './components/layout/AppHeader'
 import { LilyPadBackground } from './components/layout/LilyPadBackground'
 
 export const metadata: Metadata = {
-    title: 'Little LilyPad',
+    title: {
+        default: 'Little LilyPad',
+        template: '%s | Little LilyPad',
+    },
     description:
         'A cute, playful web app for learning about flowers and plants.',
 }

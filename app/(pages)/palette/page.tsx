@@ -1,5 +1,10 @@
 import { Palette, Sparkles } from 'lucide-react'
+import type { Metadata } from 'next'
 import { PaletteCreator } from '../../components/palette/PaletteCreator'
+
+export const metadata: Metadata = {
+    title: 'Palette Creator',
+}
 
 export default function PalettePage() {
     return (
